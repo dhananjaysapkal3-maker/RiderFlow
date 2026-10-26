@@ -2,6 +2,8 @@
 
 A polished React + FastAPI prototype for an AI-powered travel companion with place search across India.
 
+**Live website:** [https://riderflow-omega.vercel.app](https://riderflow-omega.vercel.app)
+
 ## Requirements
 - Python 3.10+
 - Node.js LTS (npm included)
@@ -30,6 +32,8 @@ npm run dev
 ```
 
 ## Deploy to Vercel
+Production site: [https://riderflow-omega.vercel.app](https://riderflow-omega.vercel.app).
+
 The existing Vercel project builds from the repository root. `vercel.json` runs `npm --prefix frontend ci`, builds with `npm --prefix frontend run build`, publishes `frontend/dist`, and routes `/api/*` to the single FastAPI entry point at `api/index.py`. The frontend uses `VITE_API_URL` as its public API base; when it is unset, production uses the current site origin, while local development uses `http://127.0.0.1:8000`.
 
 The Vercel deployment includes the FastAPI backend, so no separate Render service is needed for the current configuration. Production uses `LLM_PROVIDER=openai`; without `OPENAI_API_KEY`, free-form online AI requests return a clear unavailable message, while route planning and other features continue to work. To enable AI, add `OPENAI_API_KEY` as a **server-side** Vercel environment variable and redeploy. Never use a `VITE_` prefix for secrets. `GOOGLE_MAPS_API_KEY` is optional and also belongs only in the server-side environment; it enables verified transit itineraries when configured and available. Ollama/Qwen remains a local-development option and is not available to Vercel.
