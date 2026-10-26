@@ -7,14 +7,23 @@ backend/.env.*
 
 # Python
 backend/.venv/
+.venv/
+**/.venv/
+venv/
+**/venv/
 backend/__pycache__/
 **/__pycache__/
 *.py[cod]
+*.egg-info/
 
 # Node / Vite
 frontend/node_modules/
+node_modules/
 frontend/dist/
+dist/
+build/
 frontend/.vercel/
+.vercel/
 
 # Local editor and OS files
 .vscode/

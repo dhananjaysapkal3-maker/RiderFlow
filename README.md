@@ -29,6 +29,13 @@ npm install
 npm run dev
 ```
 
+## Deploy to Vercel
+The existing Vercel project builds from the repository root. `vercel.json` runs `npm --prefix frontend ci`, builds with `npm --prefix frontend run build`, publishes `frontend/dist`, and routes `/api/*` to the single FastAPI entry point at `api/index.py`. The frontend uses `VITE_API_URL` as its public API base; when it is unset, production uses the current site origin, while local development uses `http://127.0.0.1:8000`.
+
+The Vercel deployment includes the FastAPI backend, so no separate Render service is needed for the current configuration. Production uses `LLM_PROVIDER=openai`; without `OPENAI_API_KEY`, free-form online AI requests return a clear unavailable message, while route planning and other features continue to work. To enable AI, add `OPENAI_API_KEY` as a **server-side** Vercel environment variable and redeploy. Never use a `VITE_` prefix for secrets. `GOOGLE_MAPS_API_KEY` is optional and also belongs only in the server-side environment; it enables verified transit itineraries when configured and available. Ollama/Qwen remains a local-development option and is not available to Vercel.
+
+Smart Bus Alerts and voice alerts are sample simulations, not live bus tracking. Arrival reminders require a manual phone check-in; they are not scheduled or sent by RiderFlow. Missed-stop recovery uses browser location and the backend to recalculate a route. Flight, rental, and unverified bus/train prices remain labeled demo estimates. Saved journeys and places stay in the current browser's local storage.
+
 ## AI assistant setup
 RiderFlow uses **Ollama with a local Qwen 2.5 3B model by default**, so you do not need a paid API key and travel prompts stay on your computer.
 

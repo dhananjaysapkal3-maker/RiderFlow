@@ -11,11 +11,14 @@ import {
 import './styles.css';
 import './product.css';
 
-const API = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+const API = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? window.location.origin : 'http://127.0.0.1:8000')).replace(/\/+$/, '');
 const SAVED_JOURNEYS_STORAGE_KEY = 'riderflow-saved-journeys';
 
 function apiErrorMessage(error, fallback) {
   if (error instanceof TypeError && /fetch/i.test(error.message)) {
+    if (import.meta.env.PROD) {
+      return 'RiderFlow’s online travel services could not be reached. Saved journeys and demo alerts remain available; please try again later.';
+    }
     return 'Cannot connect to the RiderFlow backend. Start it with START_BACKEND.bat, then try again.';
   }
   return error.message || fallback;

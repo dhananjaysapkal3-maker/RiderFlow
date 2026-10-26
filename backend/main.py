@@ -618,7 +618,11 @@ async def ai_plan(req: AIRequest):
         raise HTTPException(500, "LLM_PROVIDER must be set to 'ollama' or 'openai' in backend/.env.")
     api_key = os.getenv("OPENAI_API_KEY")
     if provider == "openai" and not api_key:
-        raise HTTPException(503, "OpenAI is selected but no API key is configured. Set OPENAI_API_KEY in backend/.env or use LLM_PROVIDER=ollama.")
+        raise HTTPException(
+            503,
+            "Online AI is not configured yet. Route planning and saved journeys are still available. "
+            "To enable AI, set OPENAI_API_KEY as a server-side environment variable.",
+        )
     else:
         llm_url = (
             os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434/v1").rstrip("/")
